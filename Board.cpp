@@ -1,13 +1,14 @@
 #include "Board.hpp"
+#include <iostream>
 using namespace std;
 using namespace WarGame;
 
-Soldier *&WarGame::Board::operator[](std::pair<int, int> location)
+Soldier *&Board::operator[](std::pair<int, int> location)
 {
     return this->board[location.first][location.second];
 }
 
-Soldier *WarGame::Board::operator[](std::pair<int, int> location) const
+Soldier *Board::operator[](std::pair<int, int> location) const
 {
     return board[location.first][location.second];
 }
@@ -20,12 +21,12 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
         throw std::invalid_argument("There is no soldier at source location!");
     }
 
-    if (player_number != (*this)[source]->get_id())
+    if ((*this)[source]->get_id() != player_number)
     {
         throw std::invalid_argument("This soldier belongs to the second player!");
     }
 
-    std::pair<int, int> target;
+    pair<int, int> target;
 
     switch (direction)
     {
@@ -58,7 +59,6 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
     board[target.first][target.second] = board[source.first][source.second];
     board[source.first][source.second] = nullptr;
     board[target.first][target.second]->activity(board, target);
-    // this is a pointer so adding *this cause dereference it.
 }
 
 bool Board::has_soldiers(uint player_number) const
@@ -67,8 +67,7 @@ bool Board::has_soldiers(uint player_number) const
     {
         for (size_t j = 0; j < board[i].size(); j++)
         {
-            Soldier *s = (*this)[{i, j}];
-            if (s != nullptr && s->get_id() == player_number)
+            if (board[i][j] != nullptr && board[i][j]->get_id() == player_number)
             {
                 return true;
             }

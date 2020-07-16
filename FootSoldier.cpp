@@ -18,9 +18,10 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
     for (row = 0; row < b.size(); row++)
         for (col = 0; col < b[row].size(); col++)
         {
+            pair<int,int> current_location = {row,col};
             // If cell contain soldier, check
             // for minimum distance.
-            if (b[row][col] != nullptr && !(row == location.first && col == location.second) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
+            if (b[row][col] != nullptr && (current_location!=location) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
             {
                 curr_dist = this->distance(location.first, row, location.second, col);
                 minimum_dist = min(minimum_dist, curr_dist);

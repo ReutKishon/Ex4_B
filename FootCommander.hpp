@@ -12,6 +12,5 @@ public:
     {
         cout << "initial FootCommander" << endl;
     }
-    virtual void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location);
-   
+    void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location);
 };
