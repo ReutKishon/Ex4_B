@@ -1,5 +1,4 @@
-#ifndef SNIPERCOMMANDER_H_
-#define SNIPERCOMMANDER_H_
+
 #pragma once
 
 #include <iostream>
@@ -8,17 +7,12 @@ using namespace std;
 
 class SniperCommander : public Soldier
 {
-    uint damage_per_activity;
 public:
-    SniperCommander(uint player_id) : Soldier(player_id, 120 , "SniperCommander") , damage_per_activity(100)
+    SniperCommander(uint player_id) : Soldier(player_id, 120, "SniperCommander", 100)
     {
         cout << "initial SniperCommander" << endl;
     }
-    virtual void activity();
-    virtual ~SniperCommander();
+    virtual void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location);
 };
 
-SniperCommander::~SniperCommander()
-{
-}
-#endif
+
