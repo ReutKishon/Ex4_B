@@ -26,18 +26,23 @@ void FootCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair<i
                 }
             }
         }
-    closest_soldier->Take_Hit(this->get_damage_points(), b, {row, col});
-}
 
-// wake up the other to attack
-
-for (int row = 0; row < b.size(); row++)
-    for (int col = 0; col < b[row].size(); col++)
+    uint health_points_after_injury = closest_soldier->get_health_points() - this->get_damage_points();
+    closest_soldier->set_health_points(health_points_after_injury);
+    if (health_points_after_injury <= 0)
     {
-
-        if (b[row][col] != nullptr && b[row][col]->get_name() == "FootSoldier" && b[row][col]->get_id() == this->get_id())
-        {
-            b[row][col]->activity(b, {row, col});
-        }
+        b[row][col] = nullptr;
     }
+
+    // wake up the other to attack
+
+    for (row = 0; row < b.size(); row++)
+        for (col = 0; col < b[row].size(); col++)
+        {
+
+            if (b[row][col] != nullptr && b[row][col]->get_name() == "FootSoldier" && b[row][col]->get_id() == this->get_id())
+            {
+                b[row][col]->activity(b, {row, col});
+            }
+        }
 }

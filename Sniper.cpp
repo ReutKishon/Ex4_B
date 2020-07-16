@@ -29,5 +29,10 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
                 }
             }
         }
-    Strongest_soldier->Take_Hit(this->get_damage_points(), b, {row, col});
+    uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
+    Strongest_soldier->set_health_points(health_points_after_injury);
+    if (health_points_after_injury <= 0)
+    {
+        b[row][col] = nullptr;
+    }
 }

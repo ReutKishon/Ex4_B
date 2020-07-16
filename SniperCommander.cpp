@@ -24,7 +24,15 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
                 }
             }
         }
-    Strongest_soldier->Take_Hit(this->get_damage_points(), b, {row, col});
+
+    uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
+    Strongest_soldier->set_health_points(health_points_after_injury);
+    if (health_points_after_injury <= 0)
+    {
+        b[row][col] = nullptr;
+    }
+
+    //wake up all the snipers
 
     for (int row = 0; row < b.size(); row++)
         for (int col = 0; col < b[row].size(); col++)
