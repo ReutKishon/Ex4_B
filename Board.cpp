@@ -26,6 +26,11 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
         throw std::invalid_argument("This soldier belongs to the second player!");
     }
 
+    if (source.first >= board.size() || source.first < 0 || source.second >= board[source.first].size() || source.second < 0)
+    {
+        throw invalid_argument("out of board's bounds!");
+    }
+
     pair<int, int> target;
 
     switch (direction)
@@ -39,9 +44,11 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
     case Down:
         target.first = source.first - 1;
         target.second = source.second;
+        break;
     case Right:
         target.first = source.first;
         target.second = source.second + 1;
+        break;
     case Left:
         target.first = source.first;
         target.second = source.second - 1;
