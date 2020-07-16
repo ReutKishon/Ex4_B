@@ -12,6 +12,6 @@ public:
     {
         cout << "initial Sniper" << endl;
     }
-    virtual void activity(vector<vector<Soldier *>> &b, pair<int, int> location);
+     void activity(vector<vector<Soldier *>> &b, pair<int, int> location);
 };
 
