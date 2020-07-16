@@ -14,14 +14,14 @@ private:
     }
 
 public:
-    Soldier(uint player_id, uint health_points,string name) : player_id(player_id), initial_health_points(health_points), health_points(health_points) , 
-    name_of_soldier(name)
+    Soldier(uint player_id, uint health_points, string name) : player_id(player_id), initial_health_points(health_points), health_points(health_points),
+                                                               name_of_soldier(name)
     {
         cout << "initial Soldier" << endl;
     }
     virtual void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location) = 0;
     void set_health_points(uint health_points);
-
+    string get_name();
     uint get_id();
     uint get_initial_health_points();
     uint get_health_points();
@@ -44,4 +44,8 @@ uint Soldier::get_health_points()
 uint Soldier::get_initial_health_points()
 {
     return initial_health_points;
+}
+string Soldier::get_name()
+{
+    return name_of_soldier;
 }
