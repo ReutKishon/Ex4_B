@@ -48,7 +48,7 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
         break;
     }
 
-    if (target.first >= board.size() || target.first < 0 || target.second >= board.size() || target.second < 0)
+    if (target.first >= board.size() || target.first < 0 || target.second >= board[target.first].size() || target.second < 0)
     {
         throw invalid_argument("out of board's bounds!");
     }

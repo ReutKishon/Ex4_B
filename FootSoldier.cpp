@@ -1,13 +1,15 @@
 
 #include <iostream>
 #include <math.h>
+#include <bits/stdc++.h>
+#include <algorithm>
 #include "FootSoldier.hpp"
 using namespace std;
 
 void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
 {
 
-    double minimum_dist = 0;
+    double minimum_dist = INT64_MAX;
     Soldier *closest_soldier = nullptr;
     double curr_dist = 0;
 
@@ -23,10 +25,10 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
             if (b[row][col] != nullptr && (current_location != location) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
             {
                 curr_dist = this->distance(location.first, row, location.second, col);
-                minimum_dist = min(minimum_dist, curr_dist);
                 if (curr_dist < minimum_dist)
                 {
                     closest_soldier = b[row][col];
+                    minimum_dist = curr_dist;
                 }
             }
         }
@@ -34,6 +36,6 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
     closest_soldier->set_health_points(health_points_after_injury);
     if (health_points_after_injury <= 0)
     {
-        b[row][col] = nullptr;
+        b[row-1][col-1] = nullptr;
     }
 }
