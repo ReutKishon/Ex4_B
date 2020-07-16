@@ -8,12 +8,14 @@ using namespace std;
 
 class FootSoldier : public Soldier
 {
+    uint damage_per_activity;
+
 public:
-    FootSoldier(uint player_id, uint health_points, uint damage_points) : Soldier(player_id, health_points, damage_points)
+    FootSoldier(uint player_id) : Soldier(player_id, 100, "FootSoldier"), damage_per_activity(10);
     {
         cout << "initial FootSoldier" << endl;
     }
-    virtual void activity();
+    void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location);
     virtual ~FootSoldier();
 };
 
