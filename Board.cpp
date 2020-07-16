@@ -2,58 +2,62 @@
 using namespace std;
 using namespace WarGame;
 
-Soldier *&operator[](std::pair<int, int> location);
+Soldier *&WarGame::Board::operator[](std::pair<int, int> location);
 {
     return this->board[location.first][location.second];
 }
 
-Soldier *Board::operator[](std::pair<int, int> location) const
+Soldier *WarGame::Board::operator[](std::pair<int, int> location) const
 {
     return board[location.first][location.second];
 }
 
 void Board::move(uint player_number, std::pair<int, int> source, MoveDIR direction)
 {
-    // Soldier *s = (*this)[source];
 
-    // if (s == nullptr || player_number != s->get_player_id())
-    // {
-    //     throw std::invalid_argument("illegal argument!");
-    // }
+    if ((*this)[source] == nullptr)
+    {
+        throw std::invalid_argument("There is no soldier at source location!");
+    }
 
-    // pair<int, int> target;
+    if (player_number != (*this)[source]->get_id())
+    {
+        throw std::invalid_argument("This soldier belongs to the second player!");
+    }
 
-    // switch (direction)
-    // {
-    //     if (target.first >= board.size() || target.first < 0 || target.second >= board.size() || target.second < 0)
-    //     {
-    //         throw invalid_argument("out of board's bounds!");
-    //     }
+    std::pair<int, int> target;
 
-    // case Up:
-    //     target.first = source.first + 1;
-    //     target.second = source.second;
-    //     break;
+    switch (direction)
+    {
 
-    // case Down:
-    //     target.first = source.first - 1;
-    //     target.second = source.second;
-    // case Right:
-    //     target.first = source.first;
-    //     target.second = source.second + 1;
-    // case Left:
-    //     target.first = source.first;
-    //     target.second = source.second - 1;
-    //     break;
-    // }
-    // // if ((*this)[target] != nullptr)
-    // {
-    //     throw("There is already another soldier!");
-    // }
-    // (*this)[target] = s;
-    // (*this)[source] = nullptr;
-    // s->attack();
-    return;
+    case Up:
+        target.first = source.first + 1;
+        target.second = source.second;
+        break;
+
+    case Down:
+        target.first = source.first - 1;
+        target.second = source.second;
+    case Right:
+        target.first = source.first;
+        target.second = source.second + 1;
+    case Left:
+        target.first = source.first;
+        target.second = source.second - 1;
+        break;
+    }
+
+    if (target.first >= board.size() || target.first < 0 || target.second >= board.size() || target.second < 0)
+    {
+        throw invalid_argument("out of board's bounds!");
+    }
+    if ((*this)[target] != nullptr)
+    {
+        throw("There is already another soldier!");
+    }
+    (*this)[target] = s;
+    (*this)[source] = nullptr;
+    s->activity(*this, target); // this is a pointer so adding *this cause dereference it.
 }
 
 bool Board::has_soldiers(uint player_number) const
@@ -65,7 +69,7 @@ bool Board::has_soldiers(uint player_number) const
             Soldier *s = (*this)[{i, j}];
             if (s != nullptr && s->get_player_id() == player_number)
             {
-                return true;
+                 return true;
             }
         }
     }

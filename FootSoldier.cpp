@@ -29,6 +29,6 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
                 }
             }
         }
-    int curr_health_of_closest_soldier = closest_soldier->get_health_points() - this->damage;
-    closest_soldier->set_health_points(curr_health_of_closest_soldier);
+    closest_soldier->Take_Hit(this->damage_per_activity,b,{row,col});
+    
 }

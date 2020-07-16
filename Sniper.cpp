@@ -29,6 +29,5 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
                 }
             }
         }
-    int health_points_after_kill = Strongest_soldier->get_health_points() - this->damage_per_activity;
-    Strongest_soldier->set_health_points(health_points_after_kill);
+    Strongest_soldier->Take_Hit(this->damage_per_activity,b,{row,col});
 }
