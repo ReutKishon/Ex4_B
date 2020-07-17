@@ -15,7 +15,10 @@ Soldier *Board::operator[](std::pair<int, int> location) const
 
 void Board::move(uint player_number, std::pair<int, int> source, MoveDIR direction)
 {
-
+    if (source.first >= board.size() || source.first < 0 || source.second >= board[source.first].size() || source.second < 0)
+    {
+        throw invalid_argument("out of board's bounds!");
+    }
     if ((*this)[source] == nullptr)
     {
         throw std::invalid_argument("There is no soldier at source location!");
@@ -24,11 +27,6 @@ void Board::move(uint player_number, std::pair<int, int> source, MoveDIR directi
     if ((*this)[source]->get_id() != player_number)
     {
         throw std::invalid_argument("This soldier belongs to the second player!");
-    }
-
-    if (source.first >= board.size() || source.first < 0 || source.second >= board[source.first].size() || source.second < 0)
-    {
-        throw invalid_argument("out of board's bounds!");
     }
 
     pair<int, int> target;
