@@ -12,6 +12,7 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
     double minimum_dist = INT64_MAX;
     Soldier *closest_soldier = nullptr;
     double curr_dist = 0;
+    pair<int, int> closest_location;
 
     // Traversing the whole matrix
     // to find the minimum distance.
@@ -29,6 +30,7 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
                 {
                     closest_soldier = b[row][col];
                     minimum_dist = curr_dist;
+                    closest_location = current_location;
                 }
             }
         }
@@ -38,7 +40,7 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
         closest_soldier->set_health_points(health_points_after_injury);
         if (health_points_after_injury <= 0)
         {
-            b[row - 1][col - 1] = nullptr;
+            b[closest_location.first][closest_location.second] = nullptr;
         }
     }
 }

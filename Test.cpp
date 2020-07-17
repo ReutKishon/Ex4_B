@@ -13,6 +13,27 @@
 #include "ParamedicCommander.hpp"
 #include <cassert>
 
+
+TEST_CASE("Sniper VS Sniper") { //good
+	    WarGame::Board board(3,3);
+	    // CHECK(!board.has_soldiers(1));
+	    board[{0,1}] = new Sniper(1);
+	    // CHECK(board.has_soldiers(1));
+
+	    // CHECK(!board.has_soldiers(2));
+		board[{1,2}] = new Sniper(2);
+	    // CHECK(board.has_soldiers(2));
+
+	    board.move(1,{0,1},WarGame::Board::MoveDIR::Up);
+	    // CHECK(board.has_soldiers(2));
+	    // CHECK(board.has_soldiers(1));
+	    CHECK_THROWS(board.move(1,{0,1},WarGame::Board::MoveDIR::Up));
+	    board.move(1,{1,1},WarGame::Board::MoveDIR::Up);
+	    CHECK(!board.has_soldiers(2));
+	    CHECK(board.has_soldiers(1));
+	}
+
+
 TEST_CASE("Test 1: Sniper vs FootSoldier:")
 {
     WarGame::Board board(5, 5);

@@ -6,6 +6,7 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
     uint max_health_points = 0;
     Soldier *Strongest_soldier = nullptr;
     uint curr_health_points = 0;
+    pair<int, int> strongest_location;
     int row, col;
     // Traversing the whole matrix
     // to find the minimum distance.
@@ -19,10 +20,12 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
             if (b[row][col] != nullptr && (current_location != location) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
             {
                 curr_health_points = b[row][col]->get_health_points();
-                max_health_points = max(max_health_points, curr_health_points);
                 if (max_health_points < curr_health_points)
                 {
                     Strongest_soldier = b[row][col];
+                    max_health_points = curr_health_points;
+
+                    strongest_location = current_location;
                 }
             }
         }
@@ -32,7 +35,7 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
         Strongest_soldier->set_health_points(health_points_after_injury);
         if (health_points_after_injury <= 0)
         {
-            b[row - 1][col - 1] = nullptr;
+            b[strongest_location.first][strongest_location.second] = nullptr;
         }
     }
 

@@ -11,6 +11,7 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
     uint max_health_points = 0;
     Soldier *Strongest_soldier = nullptr;
     uint curr_health_points = 0;
+    pair<int,int> strongest_location;
     int row, col;
     // Traversing the whole matrix
     // to find the minimum distance.
@@ -27,6 +28,7 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
                 {
                     Strongest_soldier = b[row][col]; // implememt operator =
                     max_health_points = curr_health_points;
+                    strongest_location = current_location;
                 }
             }
         }
@@ -37,7 +39,7 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
         Strongest_soldier->set_health_points(health_points_after_injury);
         if (health_points_after_injury <= 0)
         {
-            b[row - 1][col - 1] = nullptr;
+            b[strongest_location.first][strongest_location.second] = nullptr;
         }
     }
 }
