@@ -17,23 +17,27 @@ void Sniper::activity(vector<vector<Soldier *>> &b, pair<int, int> location)
     for (row = 0; row < b.size(); row++)
         for (col = 0; col < b[row].size(); col++)
         {
-            pair<int, int> current_locatoin = {row,col};
+            pair<int, int> current_location = {row, col};
             // If cell contains soldier, check
             // for max health points.
-            if (b[row][col] != nullptr &&  (current_location != location) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
+            if (b[row][col] != nullptr && (current_location != location) && b[row][col]->get_id() != this->get_id()) // take care of not  the same location
             {
                 curr_health_points = b[row][col]->get_health_points();
-                max_health_points = max(max_health_points, curr_health_points);
                 if (max_health_points < curr_health_points)
                 {
                     Strongest_soldier = b[row][col]; // implememt operator =
+                    max_health_points = curr_health_points;
                 }
             }
         }
-    uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
-    Strongest_soldier->set_health_points(health_points_after_injury);
-    if (health_points_after_injury <= 0)
+    if (Strongest_soldier != nullptr)
     {
-        b[row][col] = nullptr;
+
+        uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
+        Strongest_soldier->set_health_points(health_points_after_injury);
+        if (health_points_after_injury <= 0)
+        {
+            b[row - 1][col - 1] = nullptr;
+        }
     }
 }

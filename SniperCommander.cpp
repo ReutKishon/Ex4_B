@@ -12,7 +12,7 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
     for (row = 0; row < b.size(); row++)
         for (col = 0; col < b[row].size(); col++)
         {
-            pair<int, int> current_locatoin = {row, col};
+            pair<int, int> current_location = {row, col};
 
             // If cell contains soldier, check
             // for max health points.
@@ -26,12 +26,14 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
                 }
             }
         }
-
-    uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
-    Strongest_soldier->set_health_points(health_points_after_injury);
-    if (health_points_after_injury <= 0)
+    if (Strongest_soldier != nullptr)
     {
-        b[row][col] = nullptr;
+        uint health_points_after_injury = Strongest_soldier->get_health_points() - this->get_damage_points();
+        Strongest_soldier->set_health_points(health_points_after_injury);
+        if (health_points_after_injury <= 0)
+        {
+            b[row - 1][col - 1] = nullptr;
+        }
     }
 
     //wake up all the snipers

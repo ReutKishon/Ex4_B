@@ -32,10 +32,13 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
                 }
             }
         }
-    uint health_points_after_injury = closest_soldier->get_health_points() - this->get_damage_points();
-    closest_soldier->set_health_points(health_points_after_injury);
-    if (health_points_after_injury <= 0)
+    if (closest_soldier != nullptr)
     {
-        b[row-1][col-1] = nullptr;
+        uint health_points_after_injury = closest_soldier->get_health_points() - this->get_damage_points();
+        closest_soldier->set_health_points(health_points_after_injury);
+        if (health_points_after_injury <= 0)
+        {
+            b[row - 1][col - 1] = nullptr;
+        }
     }
 }

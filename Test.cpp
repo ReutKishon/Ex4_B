@@ -19,15 +19,13 @@ TEST_CASE("Test 1: Sniper vs FootSoldier:")
     board[{0, 0}] = new Sniper(1);      //player 1
     board[{4, 4}] = new FootSoldier(2); //player 2
     //Sniper moves
-    CHECK_THROWS(board.move(1, {0, 0}, WarGame::Board::Left));
-    CHECK_THROWS(board.move(1, {0, 0}, WarGame::Board::Down));
 
     board.move(1, {0, 0}, WarGame::Board::Right);
     // CHECK(board.has_soldiers(1));
     // CHECK(board.has_soldiers(2));
     board.move(1, {0, 1}, WarGame::Board::Up);
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
     board.move(1, {1, 1}, WarGame::Board::Up);
     // CHECK(board.has_soldiers(1));
     // CHECK(board.has_soldiers(2));
@@ -38,22 +36,23 @@ TEST_CASE("Test 1: Sniper vs FootSoldier:")
     CHECK_THROWS(board.move(2, {4, 4}, WarGame::Board::Right));
     CHECK_THROWS(board.move(2, {4, 4}, WarGame::Board::Up));
 
-    board.move(2, {4, 4}, WarGame::Board::Left);
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
-    board.move(2, {4, 3}, WarGame::Board::Down);
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
-    board.move(2, {3, 3}, WarGame::Board::Left);
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
+    CHECK_THROWS(board.move(2, {4, 4}, WarGame::Board::Left)); // was killed
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
+    board.move(1, {3, 1}, WarGame::Board::Left); // to {3,0}
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
+    board.move(1, {3, 0}, WarGame::Board::Down); // to {2,0}
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
     CHECK_THROWS(board.move(2, {3, 2}, WarGame::Board::Left)); // player 1 in in that place!
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
-    board.move(2, {3, 2}, WarGame::Board::Down);
-    // CHECK(board.has_soldiers(1));
-    // CHECK(board.has_soldiers(2));
-} //23
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
+    CHECK_THROWS(board.move(2, {3, 2}, WarGame::Board::Down));
+    //     // CHECK(board.has_soldiers(1));
+    //     // CHECK(board.has_soldiers(2));
+    // } //23
+}
 
 TEST_CASE("Test 2: FootSoldier vs FootSoldier:")
 {
@@ -124,8 +123,6 @@ TEST_CASE("Test 3: 3 soldiers vs 3 soldiers")
     board.move(1, {0, 0}, WarGame::Board::Right); //{0,1}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
-    CHECK_THROWS(board.move(1, {1, 0}, WarGame::Board::Down)); //{0,0}
-    CHECK_THROWS(board.move(1, {0, 0}, WarGame::Board::Right));
     board.move(1, {2, 2}, WarGame::Board::Left); //{2,1}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
@@ -141,15 +138,14 @@ TEST_CASE("Test 3: 3 soldiers vs 3 soldiers")
     board.move(2, {3, 3}, WarGame::Board::Right); //{3,4}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
-    CHECK_THROWS(board.move(2, {3, 4}, WarGame::Board::Left)); //{3,3}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
-    board.move(2, {3, 3}, WarGame::Board::Left); //{3,2}
+    CHECK_THROWS(board.move(2, {3, 3}, WarGame::Board::Left)); //{3,2}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
-    // CHECK_THROWS(board.move(2, {3, 2}, WarGame::Board::Left)); //{3,1}
-    // CHECK_THROWS(board.move(1, {3, 1}, WarGame::Board::Up));   //{4,1}
-    board.move(1, {3, 1}, WarGame::Board::Left); //{3,0}
+    CHECK_THROWS(board.move(2, {3, 2}, WarGame::Board::Left)); //{3,1}
+    CHECK_THROWS(board.move(1, {3, 1}, WarGame::Board::Up));   //{4,1}
+    board.move(1, {3, 1}, WarGame::Board::Left);               //{3,0}
     CHECK(board.has_soldiers(1));
     CHECK(board.has_soldiers(2));
 } //25

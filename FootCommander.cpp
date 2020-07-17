@@ -29,12 +29,14 @@ void FootCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair<i
                 }
             }
         }
-
-    uint health_points_after_injury = closest_soldier->get_health_points() - this->get_damage_points();
-    closest_soldier->set_health_points(health_points_after_injury);
-    if (health_points_after_injury <= 0)
+    if (closest_soldier != nullptr)
     {
-        b[row][col] = nullptr;
+        uint health_points_after_injury = closest_soldier->get_health_points() - this->get_damage_points();
+        closest_soldier->set_health_points(health_points_after_injury);
+        if (health_points_after_injury <= 0)
+        {
+            b[row - 1][col - 1] = nullptr;
+        }
     }
 
     // wake up the other to attack
