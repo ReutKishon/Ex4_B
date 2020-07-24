@@ -22,7 +22,6 @@ public:
     double distance(int x1, int x2, int y1, int y2); //(x1,y1) , (x2,y2)  pitagoras
 
     virtual void activity(std::vector<std::vector<Soldier *>> &b, std::pair<int, int> location) = 0;
-    Soldier *Take_Hit(int damage_points, vector<vector<Soldier *>> &b, std::pair<int, int> location); // utility method that takes care of the case that the soldier was wounded
     // setters and getters:
     void set_health_points(uint health_points);
     string get_name();
