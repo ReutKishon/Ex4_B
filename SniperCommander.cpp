@@ -35,6 +35,7 @@ void SniperCommander::activity(std::vector<std::vector<Soldier *>> &b, std::pair
         Strongest_soldier->set_health_points(health_points_after_injury);
         if (health_points_after_injury <= 0)
         {
+            delete b[strongest_location.first][strongest_location.second];
             b[strongest_location.first][strongest_location.second] = nullptr;
         }
     }

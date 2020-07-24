@@ -40,6 +40,7 @@ void FootSoldier::activity(vector<vector<Soldier *>> &b, pair<int, int> location
         closest_soldier->set_health_points(health_points_after_injury);
         if (health_points_after_injury <= 0)
         {
+            delete b[closest_location.first][closest_location.second];
             b[closest_location.first][closest_location.second] = nullptr;
         }
     }

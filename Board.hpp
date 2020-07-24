@@ -1,4 +1,4 @@
- /**
+/**
  * Header file for the board of the war game.
  * 
  * You can copy this file to a new file called Board.hpp, and extend it as you like.
@@ -57,6 +57,14 @@ namespace WarGame
 
         ~Board()
         {
+            for (int i = 0; i < board.size(); i++)
+            {
+                for (size_t j = 0; j < board[i].size(); j++)
+                {
+                    if (board[i][j] != nullptr)
+                        delete board[i][j];
+                }
+            }
             board.clear();
         }
     };
